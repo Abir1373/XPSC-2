@@ -1,5 +1,6 @@
-if(n==1)
+while(now>0)
     {
-        cout << "NO\n" ; 
-        return ; 
+        now -= odd ; 
+        odd >>= 1 ;
+        if(now>0)cur += 1 ; 
     }

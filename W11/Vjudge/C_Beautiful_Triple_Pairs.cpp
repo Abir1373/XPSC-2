@@ -36,37 +36,35 @@ using namespace std ;
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    vll a(n) , b(n) ; 
-    vector<pii>v ; 
-    for(ll i = 0 ; i < n ; i++)
+    ll n ; cin >> n ; 
+    deque<ll>dq(n) ;  
+    for(ll i=0;i<n;i++)
     {
-        cin >> a[i] ;
-        v.pb({a[i],i}) ;  
+        cin >> dq[i] ; 
     }
-    map<ll,ll>mp ; 
-    for(ll i = 0 ; i < n ; i++)
+    map<tuple<ll,ll,ll>,ll>mp ;
+    deque<ll>cur , tmp ;  
+    for(ll i=0;i<n;i++)
     {
-        cin >> b[i] ;
-        mp[b[i]]++ ;
-    } 
-    all(v) ; 
-    vll ans(n) ; 
-    for(ll i = 0 ; i < n ; i++)
-    {
-        ll val = v[i].f - m ; 
-        auto it = mp.lower_bound(val) ; 
-        ll cur = it -> first ;
-        mp[cur]-- ; 
-        if(mp[cur] == 0)
+        cur.pb(dq[i]) ; 
+        if(i==2)
         {
-            mp.erase(it) ; 
+            tmp = cur ; 
+            all(tmp) ; 
+            mp[make_tuple(cur[0],cur[1],cur[2])]++  ; 
         }
-        ans[v[i].s] = cur ; 
+        else if(i>2)
+        {
+            cur.ppf() ;
+            tmp = cur ; 
+            all(tmp) ;
+            mp[make_tuple(cur[0],cur[1],cur[2])]++  ; 
+        }
     }
-    for(ll i = 0 ; i < n ; i++)
+    for(auto i: mp)
     {
-        cout << ans[i] << " \n"[i==n-1] ;
+        tuple<ll,ll,ll>x = i.f ; 
+        cout << get<0>(x) << ' ' << get<1>(x) << ' ' << get<2>(x) << '\n' ; ; 
     }
 }
 

@@ -36,38 +36,21 @@ using namespace std ;
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    vll a(n) , b(n) ; 
-    vector<pii>v ; 
-    for(ll i = 0 ; i < n ; i++)
+    ll n ; cin >> n ;
+    string s ; 
+    cin >> s ;
+    map<char,ll>mp ;  
+    for(ll i=0;i<n*4;i++)
     {
-        cin >> a[i] ;
-        v.pb({a[i],i}) ;  
+        if(s[i]=='?')continue;
+        if(mp[s[i]]<n)mp[s[i]]++ ; 
     }
-    map<ll,ll>mp ; 
-    for(ll i = 0 ; i < n ; i++)
+    ll ans = 0 ; 
+    for(auto i: mp)
     {
-        cin >> b[i] ;
-        mp[b[i]]++ ;
-    } 
-    all(v) ; 
-    vll ans(n) ; 
-    for(ll i = 0 ; i < n ; i++)
-    {
-        ll val = v[i].f - m ; 
-        auto it = mp.lower_bound(val) ; 
-        ll cur = it -> first ;
-        mp[cur]-- ; 
-        if(mp[cur] == 0)
-        {
-            mp.erase(it) ; 
-        }
-        ans[v[i].s] = cur ; 
+        ans+=i.s ;
     }
-    for(ll i = 0 ; i < n ; i++)
-    {
-        cout << ans[i] << " \n"[i==n-1] ;
-    }
+    cout << ans << '\n' ;
 }
 
 signed main()

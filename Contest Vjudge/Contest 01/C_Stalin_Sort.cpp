@@ -36,37 +36,20 @@ using namespace std ;
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    vll a(n) , b(n) ; 
-    vector<pii>v ; 
-    for(ll i = 0 ; i < n ; i++)
+    ll n ; cin >> n ; 
+    vll v(n) ; 
+    for(ll i=0;i<n;i++)
     {
-        cin >> a[i] ;
-        v.pb({a[i],i}) ;  
+        cin >> v[i] ; 
     }
-    map<ll,ll>mp ; 
-    for(ll i = 0 ; i < n ; i++)
+    ll mn = 1e18 ; 
+    for(ll i=0;i<n;i++)
     {
-        cin >> b[i] ;
-        mp[b[i]]++ ;
-    } 
-    all(v) ; 
-    vll ans(n) ; 
-    for(ll i = 0 ; i < n ; i++)
-    {
-        ll val = v[i].f - m ; 
-        auto it = mp.lower_bound(val) ; 
-        ll cur = it -> first ;
-        mp[cur]-- ; 
-        if(mp[cur] == 0)
+        if(i!=5)continue;
+        for(ll j=0;j<i;j++)
         {
-            mp.erase(it) ; 
+            cout << v[j] << ' ' ;
         }
-        ans[v[i].s] = cur ; 
-    }
-    for(ll i = 0 ; i < n ; i++)
-    {
-        cout << ans[i] << " \n"[i==n-1] ;
     }
 }
 

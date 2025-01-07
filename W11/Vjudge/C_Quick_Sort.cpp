@@ -14,7 +14,7 @@ using namespace std ;
 #define ppf pop_front
 #define ll long long int
 #define ld long double
-#define nl '\n'
+#define ed endl
 #define B begin
 #define rb rbegin
 #define E end
@@ -36,41 +36,23 @@ using namespace std ;
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    vll a(n) , b(n) ; 
-    vector<pii>v ; 
-    for(ll i = 0 ; i < n ; i++)
+    ll n , k ; cin >> n >> k ; 
+    vll v(n+1) ; 
+    ll p = 1 ; 
+    for(ll i=1;i<=n;i++)
     {
-        cin >> a[i] ;
-        v.pb({a[i],i}) ;  
-    }
-    map<ll,ll>mp ; 
-    for(ll i = 0 ; i < n ; i++)
-    {
-        cin >> b[i] ;
-        mp[b[i]]++ ;
-    } 
-    all(v) ; 
-    vll ans(n) ; 
-    for(ll i = 0 ; i < n ; i++)
-    {
-        ll val = v[i].f - m ; 
-        auto it = mp.lower_bound(val) ; 
-        ll cur = it -> first ;
-        mp[cur]-- ; 
-        if(mp[cur] == 0)
+        cin >> v[i] ;
+        if(v[i]==p)
         {
-            mp.erase(it) ; 
-        }
-        ans[v[i].s] = cur ; 
+            p++ ; 
+        } 
     }
-    for(ll i = 0 ; i < n ; i++)
-    {
-        cout << ans[i] << " \n"[i==n-1] ;
-    }
+    ll ans = n - (p-1) ; 
+    ans = (ans+k-1)/k ;  
+    cout << ans << '\n' ;
 }
 
-signed main()
+int main()
 {
    FastRead;
    tc()
