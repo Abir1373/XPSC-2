@@ -37,18 +37,36 @@ using namespace std ;
 void solve()
 {
     ll n ; cin >> n ; 
-    vll v(n) ; 
+    ll have = 0 , option = 0 ; 
+    string a , b ; cin >> a >> b ; 
     for(ll i=0;i<n;i++)
     {
-        cin >> v[i] ; 
-    }
-    ll mn = 1e18 ; 
-    for(ll i=0;i<n;i++)
-    {
-        if(i!=5)continue;
-        for(ll j=0;j<i;j++)
+        if(a[i]=='1' && b[i]=='1')
         {
-            cout << v[j] << ' ' ;
+            have++ ; 
+        }
+        else if(a[i]=='1' && b[i]=='0')
+        {
+            option++ ; 
+        }
+        else if(a[i]=='0' && b[i]=='1')
+        {
+            option++ ; 
+        }
+    }
+    if(have&1)
+    {
+        cout << "YES\n" ; 
+    }
+    else if(have%2==0)
+    {
+        if(option==0)
+        {
+            cout<<"NO\n";
+        }
+        else 
+        {
+            cout<<"YES\n";
         }
     }
 }
