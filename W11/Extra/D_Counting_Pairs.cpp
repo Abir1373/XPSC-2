@@ -41,7 +41,7 @@ void solve()
     ll sum = 0 ; 
     for(ll i=0;i<n;i++)
     {
-        cin >> v[i] ;
+        cin >> v.[i] ;
         sum += v[i] ; 
     }
     all(v) ; 

@@ -37,29 +37,13 @@ using namespace std ;
 void solve()
 {
     ll n ; cin >> n ; 
-    if(n==1)
+    string s ; cin >> s ; 
+    for(ll i=0;i<n;i++)
     {
-        cout << "0\n" ; 
-        return ;
+        if(s[i]=='0')cout<<'1';
+        else cout<<'0';
     }
-    ll lo = 1 , hi = 1e9  , m , ans ; 
-    while(lo<=hi)
-    {
-        m = (lo + hi) >> 1 ; 
-        ll div = (m * 2) + 2 ; 
-        ll cmp = (div * m) ; 
-        if(cmp>=n)
-        {
-            ans = m ; 
-            hi = m - 1 ; 
-        }
-        else 
-        {
-            lo = m + 1 ; 
-        }
-    }
-    cout << ans << '\n' ;
-    cout << n * 2 + 2 ; 
+    cout<<"\n";
 }
 
 signed main()
