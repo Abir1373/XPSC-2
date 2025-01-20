@@ -36,32 +36,26 @@ using namespace std ;
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    ll ans = 0 ;
-    vll v(n) ; 
+    ll n ; cin >> n ; 
+    ll evn = 0 , odd = 0 ; 
     for (ll i = 0 ; i<n ; i++)
     {
-        cin >> v[i] ; 
+        ll inp ; cin >> inp ; 
+        odd += (inp&1) ; 
+        evn += (inp%2==0ll) ; 
     }
-    all (v) ;
-    ll l = 0 , r = n - 1 ;  
-    while (l<r)
+    if (evn && odd)
     {
-        if (v[l]+v[r] == m)
-        {
-            ans++ ; 
-            l++ ; 
-            r-- ; 
-        }
-        else if ( v[l] + v[r] < m )
-        {
-            l++ ; 
-        }
-        else {
-            r-- ; 
-        }
+        cout << odd + 1 << '\n' ; 
     }
-    cout << ans << '\n' ; 
+    else if (evn && odd==0)
+    {
+        cout << "1\n" ; 
+    }
+    else if (evn==0  && odd)
+    {
+        cout << odd-1 << '\n' ;
+    }
 }
 
 signed main()

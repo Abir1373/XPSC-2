@@ -36,30 +36,28 @@ using namespace std ;
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    ll ans = 0 ;
+    ll n ; cin >> n ; 
     vll v(n) ; 
+    map <ll,ll> mp ; 
     for (ll i = 0 ; i<n ; i++)
     {
-        cin >> v[i] ; 
+        cin >> v[i] ;
+        mp[v[i]]++ ;  
     }
-    all (v) ;
-    ll l = 0 , r = n - 1 ;  
-    while (l<r)
+    ll ans = 0 ;
+    for (ll i = 2 ; i<=2*n ; i++)
     {
-        if (v[l]+v[r] == m)
+        ll tot = 0 ; 
+        for (auto it : mp)
         {
-            ans++ ; 
-            l++ ; 
-            r-- ; 
+            ll d = i - it.f ; 
+            if (d >= 1 && mp.count(d))
+            {
+                tot += min (it.s , mp[d]) ; 
+            }
         }
-        else if ( v[l] + v[r] < m )
-        {
-            l++ ; 
-        }
-        else {
-            r-- ; 
-        }
+        tot >>= 1 ; 
+        ans = max (ans , tot) ; 
     }
     cout << ans << '\n' ; 
 }
