@@ -37,56 +37,37 @@ using namespace std ;
 void solve()
 {
     ll n ; cin >> n ; 
-    vll v(n) ; 
-    map <ll,ll>mp ; 
-    ll two = 0 ; 
-    vll ans ; 
-    for (ll i = 0 ; i<n ; i++)
+    vll v (n+1, 0) , ans (n+1,1) ; 
+    for (ll i = 1 ; i <= n ; i++)
     {
         cin >> v[i] ; 
-        mp[v[i]]++ ; 
-        if (mp[v[i]] >= 4)
+    }
+    for (ll i = 2 ; i<=n ; i++)
+    {
+        if (v[i] != v[i-1])
         {
-            cout << v[i] << ' ' << v[i] << ' ' << v[i] << ' ' << v[i] << '\n' ;
-            return ; 
+            ans[i] = i  ;
         }
-        if(mp[v[i]]==2) 
+        else 
         {
-            two += 1 ; 
-            ans.pb(v[i]) ; 
-        }
-        if (two == 2)
-        {
-            cout << ans[0] << ' ' << ans[0] << ' ' << ans[1] << ' ' << ans[1] << '\n' ;
-            return ; 
+            ans[i] = ans[i-1] ; 
         }
     }
-    if (two == 0)
+    ll m ; cin >> m ; 
+    while (m--)
     {
-        cout << "-1\n" ; 
-        return ; 
-    }
-    mp[ans[0]]-=2 ; 
-    if (mp[ans[0]] == 0)
-    {
-        mp.erase(ans[0]) ; 
-    }
-    vll pre ; 
-    for (auto i: mp)
-    {
-        pre.pb(i.f) ; 
-    }
-    ll len = sz(pre) ; 
-    for (ll i = 0 ; i<len-1 ; i++)
-    {
-        ll d = abs(pre[i+1] - pre[i]) ; 
-        if(d<=ans[0])
+        ll a , b ; cin >> a >> b ; 
+        if (ans[a]==ans[b])
         {
-            cout << ans[0] << " " << ans[0] << ' ' << pre[i] << " " << pre[i+1] << '\n' ; 
-            return ; 
+            cout << "-1 -1\n" ; 
+        }
+        else 
+        {
+            ll ind = upper_bound(ans.begin()+a,ans.end(),a) - ans.begin() ;
+            cout << a << ' ' << ind << "\n"; 
         }
     }
-    cout << "-1\n" ;
+    cout << '\n' ;
 }
 
 signed main()
