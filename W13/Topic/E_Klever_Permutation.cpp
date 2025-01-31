@@ -1,7 +1,3 @@
-// Bismillahir Rahmanir Raheem
-
-// author : VaLEnT_DouLoS ( Abir ) 
-
 #include <bits/stdc++.h>
 
 using namespace std ; 
@@ -14,7 +10,7 @@ using namespace std ;
 #define ppf pop_front
 #define ll long long int
 #define ld long double
-#define nl '\n'
+#define ed endl
 #define B begin
 #define rb rbegin
 #define E end
@@ -29,37 +25,41 @@ using namespace std ;
 #define rev(v) reverse(v.begin(),v.end())
 #define sz(s) s.size() ;
 #define FastRead ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
+#define fr(n) for(ll i=1;i<=n;i++)
+#define rfr(n) for(ll i=n;i>=1;i--) 
+#define in(n) ll n ; cin>>n ;
 #define inf INT_MAX ;
+#define cast(val) val ? cout("YES") : cout("NO") ;
 #define clr(x,y) memset(x,y,sizeof x)
-#define pii pair<ll,ll>
-#define vll vector<ll>
 
 void solve()
 {
-    ll n ; cin >> n ; 
-    vll v(n) ; 
-    ll sum = 0 ; 
-    for (ll i=0;i<n;i++)
+    ll n,k;
+    cin>>n>>k;
+    ll arr[n];
+    ll l=1,r=n;
+    for(ll i=0;i<k;i++)
     {
-        cin >> v[i] ; 
-        sum += v[i] ; 
-    }
-    sum *=2 ; 
-    ll ans = 0 ; 
-    if (sum%n==0)
-    {
-        sum /= n ;
-        map<ll,ll>freq ; 
-        for (ll i=0;i<n;i++)
+        for(ll j=i;j<n;j+=k)
         {
-            ans += freq[sum-v[i]] ; 
-            freq[v[i]]++ ; 
+            if(i&1)
+            {
+                arr[j]=l++;
+            }
+            else 
+            {
+                arr[j]=r--;
+            }
         }
     }
-    cout << ans << '\n' ;
+    for(ll i=0;i<n;i++)
+    {
+        cout<<arr[i]<<' ';
+    }
+    cout<<"\n";
 }
 
-signed main()
+int main()
 {
    FastRead;
    tc()
