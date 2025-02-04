@@ -30,41 +30,43 @@ using namespace std ;
 #define rall(v) sort(v.rbegin(),v.rend())
 #define rev(v) reverse(v.begin(),v.end())
 #define sz(s) s.size() ;
-#define FastRead ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
+#define Optimize ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
 #define inf INT_MAX ;
 #define clr(x,y) memset(x,y,sizeof x)
 #define pii pair<ll,ll>
 #define vll vector<ll>
+#define vpi vector<pii>
 
-template <typename T> using pbds = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 void solve()
 {
-    ll n , m , q ; cin >> n >> m >> q ; 
-    vll v(n+2,0) , pre(n+2,0); 
-    for (ll i=1;i<=n;i++)
+    ll n ; cin >> n ; 
+    vpi v ; 
+    for (ll i=0;i<n;i++)
     {
-        cin >> v[i] ; 
+        ll a , b ; 
+        cin >> a >> b ; 
+        v.pb({a,b}) ; 
     }
-    for (ll i=1;i<=m;i++)
+    all (v) ; 
+    pbds<ll>pb ; 
+    for (ll i=0;i<n;i++)
     {
-        ll l , r , val ; cin >> l >> r >> val ; 
-        pre[l] += val ; 
-        pre[r+1] -= val ; 
+        pb.insert(v[i].s) ; 
     }
-    for (ll i=1;i<=n;i++)
+    ll ans = 0 ; 
+    for (ll i=0;i<n;i++)
     {
-        v[i] = v[i] + pre[i] + v[i-1] ;
+        ans += pb.order_of_key(v[i].s) ; 
+        pb.erase(v[i].s) ; 
     }
-    for (ll i=1;i<=n;i++)
-    {
-        cout << v[i] << ' ' ;
-    }
+    cout << ans << '\n' ;
 }
 
 signed main()
 {
-   FastRead;
-//    tc()
+   Optimize;
+   tc()
     solve();
 }
