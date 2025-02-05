@@ -30,64 +30,59 @@ using namespace std ;
 #define rall(v) sort(v.rbegin(),v.rend())
 #define rev(v) reverse(v.begin(),v.end())
 #define sz(s) s.size() ;
-#define FastRead ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
+#define Optimize ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
 #define inf INT_MAX ;
 #define clr(x,y) memset(x,y,sizeof x)
 #define pii pair<ll,ll>
 #define vll vector<ll>
+#define vpi vector<pii>
 
 template <typename T> using pbds = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 void solve()
 {
-    ll n , k ; cin >> n >> k ; 
-    vll v(n+1) ; 
-    for (ll i=1;i<=n;i++)
+    ll n ; cin >> n ;
+    vll a(n) , b(n) , d(n) ; 
+    for (ll i=0;i<n;i++)
     {
-        cin >> v[i] ; 
-    }
-    if (n==k)
+        cin >> a[i] ; 
+    } 
+    for (ll i=0;i<n;i++)
     {
-        ll cur = 1 ; 
-        for(ll i=2;i<=n;i+=2)
-        {
-            if (cur!=v[i])
-            {
-                cout<<cur<<'\n' ; 
-                return ;
-            }
-            cur++;
-        }
-        cout << cur << '\n' ;
+        cin >> b[i] ; 
+        d[i] = a[i] - b[i] ; 
     }
-    else 
+    all(d) ; 
+    ll ans = 0 ; 
+    for (ll i=0;i<n;i++)
     {
-        ll ind = 2 , val = 1 ;
-        ll tot = (n-ind) + 1 ; 
-        while(tot>=k)
+        ll val ;
+        if (d[i]<0)
         {
-            if (v[ind]==val)
-            {
-                ind++ ; 
-            }
-            else break ; 
-            tot = (n-ind) + 1 ; 
+            val = abs(d[i])+1 ; 
         }
-        for (ll i=ind;i<=n;i++)
+        else if (d[i]==0)
         {
-            if (v[i]==val)
-            {
-                val++ ; 
-            }
-            else break ; 
+            val = 1 ; 
         }
-        cout << min(2ll,val) << '\n' ;
+        else if (d[i]>0)
+        {
+            val = d[i] ; 
+        }
+        auto it = lower_bound(d.begin()+i+1,d.end(),val); 
+        if (it != d.end())
+        {
+            ll now = it - d.begin() ; 
+            ans += (n-now) ; 
+        }
     }
+    cout << ans << '\n' ;
+
 }
 
 signed main()
 {
-   FastRead;
-   tc()
+   Optimize;
+//    tc()
     solve();
 }

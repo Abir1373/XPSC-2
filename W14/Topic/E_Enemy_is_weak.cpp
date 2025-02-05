@@ -30,64 +30,46 @@ using namespace std ;
 #define rall(v) sort(v.rbegin(),v.rend())
 #define rev(v) reverse(v.begin(),v.end())
 #define sz(s) s.size() ;
-#define FastRead ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
+#define Optimize ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
 #define inf INT_MAX ;
 #define clr(x,y) memset(x,y,sizeof x)
 #define pii pair<ll,ll>
 #define vll vector<ll>
+#define vpi vector<pii>
 
-template <typename T> using pbds = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T> using o_set1 = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T> using o_set2 = tree<T, null_type, greater<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 void solve()
 {
-    ll n , k ; cin >> n >> k ; 
-    vll v(n+1) ; 
-    for (ll i=1;i<=n;i++)
+    ll n ; cin >> n ; 
+    vll v(n) ;
+    o_set1<ll>os1 ;
+    o_set2<ll>os2 ; 
+    for (ll i=0;i<n;i++)
     {
         cin >> v[i] ; 
+        os1.insert(v[i]) ; 
     }
-    if (n==k)
+    ll ans = 0 ; 
+    for (ll i=0;i<n;i++)
     {
-        ll cur = 1 ; 
-        for(ll i=2;i<=n;i+=2)
-        {
-            if (cur!=v[i])
-            {
-                cout<<cur<<'\n' ; 
-                return ;
-            }
-            cur++;
-        }
-        cout << cur << '\n' ;
+        ll val = os2.order_of_key(v[i]) ; 
+
+        ll ind = os1.order_of_key(v[i]) ; 
+        auto it = os1.find_by_order(ind) ; 
+        os1.erase(it) ; 
+
+        ll val2 = os1.order_of_key(v[i]) ; 
+        ans += (val*val2) ; 
+        os2.insert(v[i]) ; 
     }
-    else 
-    {
-        ll ind = 2 , val = 1 ;
-        ll tot = (n-ind) + 1 ; 
-        while(tot>=k)
-        {
-            if (v[ind]==val)
-            {
-                ind++ ; 
-            }
-            else break ; 
-            tot = (n-ind) + 1 ; 
-        }
-        for (ll i=ind;i<=n;i++)
-        {
-            if (v[i]==val)
-            {
-                val++ ; 
-            }
-            else break ; 
-        }
-        cout << min(2ll,val) << '\n' ;
-    }
+    cout << ans << '\n' ;
 }
 
 signed main()
 {
-   FastRead;
-   tc()
+   Optimize;
+//    tc()
     solve();
 }

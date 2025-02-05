@@ -30,64 +30,65 @@ using namespace std ;
 #define rall(v) sort(v.rbegin(),v.rend())
 #define rev(v) reverse(v.begin(),v.end())
 #define sz(s) s.size() ;
-#define FastRead ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
+#define Optimize ios_base::sync_with_stdio(false);cin.tie(0),cout.tie(0)
 #define inf INT_MAX ;
 #define clr(x,y) memset(x,y,sizeof x)
 #define pii pair<ll,ll>
 #define vll vector<ll>
+#define vpi vector<pii>
 
-template <typename T> using pbds = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 void solve()
 {
-    ll n , k ; cin >> n >> k ; 
+    ll n , x ; cin >> n >> x ;
     vll v(n+1) ; 
     for (ll i=1;i<=n;i++)
     {
         cin >> v[i] ; 
     }
-    if (n==k)
+    ll mx = 1 ; 
+    for (ll i=1;i<n;i++)
     {
-        ll cur = 1 ; 
-        for(ll i=2;i<=n;i+=2)
+        ll cnt , p = 1 , prv = v[i] , toggle = 1 ; 
+        for (ll j=i+1;j<=n;j++)
         {
-            if (cur!=v[i])
+            if (prv>v[j])
             {
-                cout<<cur<<'\n' ; 
-                return ;
+                if (p==0 || v[j]*x < prv)
+                {
+                    break ; 
+                }
+                else 
+                {
+                    p = 0 ; 
+                    if (toggle == 1)
+                    {
+                        prv = v[j] * x ; 
+                        toggle = 2 ; 
+                    }
+                }
             }
-            cur++;
+
+            if (toggle==1)
+            {
+                prv = v[j] ; 
+            }
+            else 
+            {
+                toggle = 1 ; 
+            }
+            cnt = j ; 
         }
-        cout << cur << '\n' ;
+        ll d = cnt - i + 1 ;
+        mx = max(d,mx) ;  
     }
-    else 
-    {
-        ll ind = 2 , val = 1 ;
-        ll tot = (n-ind) + 1 ; 
-        while(tot>=k)
-        {
-            if (v[ind]==val)
-            {
-                ind++ ; 
-            }
-            else break ; 
-            tot = (n-ind) + 1 ; 
-        }
-        for (ll i=ind;i<=n;i++)
-        {
-            if (v[i]==val)
-            {
-                val++ ; 
-            }
-            else break ; 
-        }
-        cout << min(2ll,val) << '\n' ;
-    }
+    cout << mx << '\n' ;
 }
 
 signed main()
 {
-   FastRead;
+   Optimize;
    tc()
     solve();
 }
