@@ -41,41 +41,37 @@ template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_ta
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    vll a(n) , b(m) ; 
-    for (ll i=0;i<n;i++)
+    ll n ; cin >> n ; 
+    deque<ll> a , b , c , d ; 
+    ll sum = 0 ; 
+    for (ll i=0,inp;i<n;i++)
     {
-        cin >> a[i] ; 
+        cin >> inp ; 
+        a.pb(inp) ; 
+        b.pf(inp) ;
+        sum += inp ;  
     }
-    for (ll i=0;i<m;i++)
+    while(n>1)
     {
-        cin >> b[i] ; 
+        for(ll i=0;i<n-1;i++)
+        {
+            ll df = a[i+1] - a[i] ; 
+            c.pb(df) ; 
+            d.pf(df*-1) ; 
+        }
+        n-- ;
+        a = c ; 
+        b = d ;
+        ll one = 0 , two = 0 ; 
+        for (ll i=0;i<n;i++)
+        {
+            one += a[i] ; two += b[i] ; 
+        }
+        sum = max({one,two,sum}) ; 
+        c.clear() ; 
+        d.clear() ;  
     }
-    all(b) ; 
-    ll prv = min (b[0]-a[0],a[0]) ; 
-    for (ll i=1;i<n;i++)
-    {
-        ll val = prv + a[i] ; 
-        auto ind = lb(b.begin(),b.end(),val) ; 
-        ll val2 = *ind ;
-        if (ind==b.end()) val2 = b[m-1] ;
-        ll mn = min(val2-a[i],a[i]) ; 
-        ll mx = max(val2-a[i],a[i]) ; 
-        if (mn>=prv)
-        {
-            prv = mn ; 
-        }
-        else if (mx>=prv)
-        {
-            prv = mx ; 
-        }
-        else 
-        {
-            cout << "NO\n" ; 
-            return ;
-        }
-    }
-    cout << "YES\n" ; 
+    cout << sum << '\n' ;
 }
 
 signed main()

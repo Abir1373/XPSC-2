@@ -41,41 +41,31 @@ template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_ta
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    vll a(n) , b(m) ; 
-    for (ll i=0;i<n;i++)
+    ll n ; cin >> n ; 
+    vll v(n+2,0) ; 
+    for (ll i=1;i<=n;i++)
     {
-        cin >> a[i] ; 
+        ll inp ; cin >> inp ; 
+        v[inp]++ ; 
     }
-    for (ll i=0;i<m;i++)
+    for(ll i=1;i<n;i++)
     {
-        cin >> b[i] ; 
-    }
-    all(b) ; 
-    ll prv = min (b[0]-a[0],a[0]) ; 
-    for (ll i=1;i<n;i++)
-    {
-        ll val = prv + a[i] ; 
-        auto ind = lb(b.begin(),b.end(),val) ; 
-        ll val2 = *ind ;
-        if (ind==b.end()) val2 = b[m-1] ;
-        ll mn = min(val2-a[i],a[i]) ; 
-        ll mx = max(val2-a[i],a[i]) ; 
-        if (mn>=prv)
+        if (v[i]==1)
         {
-            prv = mn ; 
+            cout << "No\n" ; 
+            return ;
         }
-        else if (mx>=prv)
+        else if (v[i]==0 || v[i]==2)
         {
-            prv = mx ; 
+            continue ; 
         }
         else 
         {
-            cout << "NO\n" ; 
-            return ;
+            v[i+1] += v[i] - 2 ; 
+            v[i] -= 2 ; 
         }
     }
-    cout << "YES\n" ; 
+    cout << (v[n]%2==0  ? "Yes\n" : "No\n") ;
 }
 
 signed main()
