@@ -41,24 +41,72 @@ template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_ta
 
 void solve()
 {
-    ll n ; cin >> n ; 
-    vll v(30,0) ; 
+    ll n , m ; cin >> n >> m ; 
     string s ; cin >> s ; 
-    for (ll i=0;i<n;i++)
+    s = " " + s ; 
+    bool ok = false ; 
+    for (ll i=1;i+m<=n;i++)
     {
-        v[s[i]-'a']++ ; 
+       if (s[i]=='1')
+       {
+            if (s[i+m]=='0')
+            {
+                ok = true ; 
+            }
+            else if (s[i+m]=='.')
+            {
+                s[i+m] = '0' ; 
+                ok = true ; 
+            }
+       }
+       else if (s[i]=='0')
+       {
+            if (s[i+m]=='1')
+            {
+                ok = true ; 
+            }
+            else if (s[i+m]=='.')
+            {
+                s[i+m] = '1' ;  
+                ok = true ; 
+            }
+       }
+       else if (s[i]=='.')
+       {
+            if (s[i+m]=='0')
+            {
+                s[i] = '1' ;
+            }
+            else if (s[i+m]=='1')
+            {
+                s[i] = '0' ; 
+            }
+            else if (s[i+m]=='.')
+            {
+                s[i] = '0' ; 
+                s[i+m] = '1' ; 
+            }
+            ok = true ; 
+       }
     }
-    ll mn = 1e18 ; 
-    for (ll i=0;i<=25;i++)
+    if (ok==false)
     {
-        mn = min(mn,v[i]) ; 
+        cout << "No\n" ;
     }
-
+    else 
+    {
+        for (ll i=1;i<=n;i++)
+        {
+            if (s[i]=='.')s[i] = '0' ; 
+        }
+        s.erase(0,1) ; 
+        cout << s << '\n' ;
+    }
 }
 
 signed main()
 {
    Optimize;
-   tc()
+//    tc()
     solve();
 }
