@@ -41,41 +41,65 @@ template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_ta
 
 void solve()
 {
-    ll x , n , m ; cin >> x >> n >> m ; 
-    ll y = x , n1 = n , m1 = m ; 
-    while(y>1 && m)
+    ll n , m ; cin >> n >> m ; 
+    ll a[n+1][m+1] ; 
+    for (ll i=1;i<=n;i++)
     {
-        m-- ; 
-        if (y&1)
+        for (ll j=1;j<=m;j++)
         {
-            y >>=1 ;
-            y++ ; 
+            cin >> a[i][j] ; 
         }
-        else y >>=1 ; 
     }
-    while(y && n)
+    ll cnt = 0 , ans = 0 ;
+    for (ll i=1;i<=n/2;i++)
     {
-        n-- ; 
-        y >>=1 ; 
-    }
-    cout << y << ' ' ; 
-    y = x , n = n1 , m = m1 ; 
-    while (y && n)
-    {
-        n-- ; 
-        y >>=1 ; 
-    }
-    while(y>1 && m)
-    {
-        m-- ;
-        if (y&1)
+        ll now = 0 ;
+        for (ll j=1;j<=m/2;j++)
         {
-            y>>=1 ; 
-            y++ ; 
+            ll p = a[i][j] ; 
+            ll q = a[i][m-now] ; 
+            ll r = a[n-cnt][j] ; 
+            ll s = a[n-cnt][m-now] ; 
+            ll avg = (p + q + r + s) / 4 ; 
+            ans += abs(p-avg) ; 
+            ans += abs(q-avg) ; 
+            ans += abs(r-avg) ; 
+            ans += abs(s-avg) ; 
+            now++ ;
         }
-        else y>>=1 ; 
+        cnt++ ; 
     }
-    cout << y << '\n' ;
+    if (n&1)
+    {
+        ll mid = (n>>1) + 1 ; 
+        ll avg = 0 ;
+        for (ll i=1;i<=m;i++)
+        {
+            avg += a[mid][i] ; 
+        }
+        avg /= m ; 
+        for (ll i=1;i<=m;i++)
+        {
+            ans += abs(a[mid][i]-avg) ;  
+        }
+    }
+    if (m&1)
+    {
+        ll avg = 0 , c = 0 ; 
+        ll mid = (m>>1) + 1 ; 
+        for (ll i=1;i<=m/2;i++)
+        {
+            avg += a[i][mid] ; 
+            avg += a[i][n-c] ; 
+            c++ ; 
+        }
+        avg /= (n-1) ; 
+        for (ll i=1;i<=m/2;i++)
+        {
+            ans += (a[i][mid]-avg) ;
+        }
+    }
+    cout << ans << '\n' ; 
 }
 
 signed main()

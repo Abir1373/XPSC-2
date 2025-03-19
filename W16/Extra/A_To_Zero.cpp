@@ -41,41 +41,19 @@ template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_ta
 
 void solve()
 {
-    ll x , n , m ; cin >> x >> n >> m ; 
-    ll y = x , n1 = n , m1 = m ; 
-    while(y>1 && m)
+    ll n , m ; cin >> n >> m ; 
+    if (n%2==0)
     {
         m-- ; 
-        if (y&1)
-        {
-            y >>=1 ;
-            y++ ; 
-        }
-        else y >>=1 ; 
+        cout << (n/m + (n%m>0)) << '\n' ; 
     }
-    while(y && n)
-    {
-        n-- ; 
-        y >>=1 ; 
+    else 
+    { 
+        n-=m ; 
+        m-- ; 
+        cout << (n/m + (n%m>0) + 1ll) << "\n" ;
     }
-    cout << y << ' ' ; 
-    y = x , n = n1 , m = m1 ; 
-    while (y && n)
-    {
-        n-- ; 
-        y >>=1 ; 
-    }
-    while(y>1 && m)
-    {
-        m-- ;
-        if (y&1)
-        {
-            y>>=1 ; 
-            y++ ; 
-        }
-        else y>>=1 ; 
-    }
-    cout << y << '\n' ;
+
 }
 
 signed main()
