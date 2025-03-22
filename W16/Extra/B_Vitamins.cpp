@@ -41,37 +41,30 @@ template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_ta
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    vll a(n) ; 
-    ll mx = 0 ; 
-    for (ll i=0;i<n;i++)
+    ll n ; cin >> n ; 
+    ll abc = INT_MAX , a = INT_MAX , b = INT_MAX , c = INT_MAX , ab = INT_MAX , ac = INT_MAX , bc = INT_MAX ;
+    while(n--)
     {
-        cin >> a[i] ; 
-        mx = max (a[i] , mx) ; 
+        ll v ; string s ; 
+        cin >> v >> s ; 
+        all(s) ; 
+        if (s=="ABC")abc = min(abc,v) ; 
+        if (s=="A")a = min(a,v) ;
+        if (s=="B")b = min(b,v) ; 
+        if (s=="C")c = min(c,v) ; 
+        if (s=="AB")ab = min(ab,v) ; 
+        if (s=="AC")ac = min(ac,v) ; 
+        if (s=="BC")bc = min(bc,v) ;
     }
-    if (m==1)
-    {
-        ll mx2 = 0 ; 
-        for (ll i=1;i<n-1;i++)
-        {
-            mx2 = max(mx2,a[i]) ; 
-        } 
-        ll c = max(a[0],a[n-1]) + mx2 ;
-        ll d = a[0] + a[n-1] ; 
-        cout << max(c,d) << '\n' ; 
-        return ; 
-    }
-    rall(a) ; 
-    ll ans = 0 ; 
-    for (ll i=0;i<=m;i++) {
-        ans += a[i] ; 
-    }
-    cout << ans << '\n' ; 
+    ll mn = abc ;  
+    mn = min({a+bc,ab+bc,ac+bc,b+ac,c+ab,mn,a+b+c,ac+ab}) ; 
+    if (mn>=INT_MAX)mn = -1 ; 
+    cout << mn << '\n' ;
 }
 
 signed main()
 {
    Optimize;
-   tc()
+//    tc()
     solve();
 }

@@ -42,36 +42,19 @@ template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_ta
 void solve()
 {
     ll n , m ; cin >> n >> m ; 
-    vll a(n) ; 
-    ll mx = 0 ; 
+    ll sum = 0 , mx = 0 ; 
     for (ll i=0;i<n;i++)
     {
-        cin >> a[i] ; 
-        mx = max (a[i] , mx) ; 
-    }
-    if (m==1)
-    {
-        ll mx2 = 0 ; 
-        for (ll i=1;i<n-1;i++)
-        {
-            mx2 = max(mx2,a[i]) ; 
-        } 
-        ll c = max(a[0],a[n-1]) + mx2 ;
-        ll d = a[0] + a[n-1] ; 
-        cout << max(c,d) << '\n' ; 
-        return ; 
-    }
-    rall(a) ; 
-    ll ans = 0 ; 
-    for (ll i=0;i<=m;i++) {
-        ans += a[i] ; 
-    }
-    cout << ans << '\n' ; 
+        ll p ; cin>>p ; 
+        sum+=p ; 
+        mx = max(mx,p) ; 
+    } 
+    cout <<  max(mx,((sum+m-1)/n+1))  << " " << mx+m  << '\n' ; 
 }
 
 signed main()
 {
    Optimize;
-   tc()
+//    tc()
     solve();
 }

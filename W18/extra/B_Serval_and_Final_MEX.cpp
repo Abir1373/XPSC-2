@@ -41,32 +41,46 @@ template <typename T> using o_set = tree<T, null_type, less_equal<T>, rb_tree_ta
 
 void solve()
 {
-    ll n , m ; cin >> n >> m ; 
-    vll a(n) ; 
-    ll mx = 0 ; 
-    for (ll i=0;i<n;i++)
+    ll n ; cin >> n ; 
+    vll v(n+1) ; 
+    ll zero = 0 ; 
+    for (ll i=1;i<=n;i++)
     {
-        cin >> a[i] ; 
-        mx = max (a[i] , mx) ; 
+        cin >> v[i] ; 
+        if (v[i]==0)zero++ ; 
     }
-    if (m==1)
+    if (zero==0)
     {
-        ll mx2 = 0 ; 
-        for (ll i=1;i<n-1;i++)
-        {
-            mx2 = max(mx2,a[i]) ; 
-        } 
-        ll c = max(a[0],a[n-1]) + mx2 ;
-        ll d = a[0] + a[n-1] ; 
-        cout << max(c,d) << '\n' ; 
-        return ; 
+        cout << "1\n" ; 
+        cout << "1 " << n << '\n' ; 
+        return ;
     }
-    rall(a) ; 
-    ll ans = 0 ; 
-    for (ll i=0;i<=m;i++) {
-        ans += a[i] ; 
+    if (zero==n)
+    {
+        cout <<"3\n" ;
+        cout << "3 " << n << '\n' ; 
+        cout << "1 2\n" ;
+        cout << "1 2\n" ;
+        return ;
     }
-    cout << ans << '\n' ; 
+    if (v[1])
+    {
+        cout <<"2\n" ; 
+        cout<<"2 "<<n<<'\n';
+        cout<<"1 2\n";
+        return ;
+    }
+    if (v[n])
+    {
+        cout<<"2\n";
+        cout<<"1 "<<n-1<<'\n';
+        cout <<"1 2\n" ; 
+        return ;
+    }
+    cout << "3\n" ; 
+    cout << "3 " << n << '\n' ; 
+    cout << "1 2\n" ; 
+    cout << "1 2\n" ; 
 }
 
 signed main()
